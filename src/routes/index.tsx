@@ -9,7 +9,6 @@ const AppView = lazy(() => import("../views/index"))
 const LoginView = lazy(() => import("../views/login"))
 const SignUpView = lazy(() => import("../views/signup"))
 
-
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -20,7 +19,7 @@ export default function AppRoutes() {
         <Route path="/app" element={<AppView />}>
           <Route index path="itemList" element={<ListItens />}/>
           <Route path="itemRegistry" element={<ItemRegistry />}/>
-          <Route path="infoUser/:id" element={<InfoUser />}/>
+          <Route path="infoUser" element={<InfoUser />}/>
           <Route path="*" element={<NotFound />} />
         </Route>
 

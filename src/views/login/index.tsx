@@ -29,8 +29,8 @@ export default function Login(){
       }
     ).then((res) => {
       setIsAuthenticating(false);
-      // setCurrentUser(res?.data);
-      // history("/app", { replace: true });
+      setCurrentUser(res?.data);
+      history("/app", { replace: true });
     }).catch((error) => {
       console.debug(error);
       setIsAuthenticating(false);

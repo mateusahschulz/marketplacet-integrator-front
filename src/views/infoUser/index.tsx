@@ -4,7 +4,7 @@ import { Formik, FormikErrors, FormikProps } from "formik";
 
 import { get, put } from "../../helpers/request";
 import BreadCrumb from "../../components/Breadcrumb";
-import { useParams } from "react-router-dom";
+import { getCurrentUser } from "../../helpers/utilities";
 
 interface UserData {
   firstName: string
@@ -16,8 +16,6 @@ type ErroForm = { [K in keyof UserData]?: string };
 
 export default function InfoUser() {
 
-  const { id } = useParams()
-
   const [dados, setDados] = useState<UserData>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -25,13 +23,12 @@ export default function InfoUser() {
   const innerRef = useRef<FormikProps<UserData>>();
 
   useEffect(() => {
-    if(id != null) {
-      get('/user/1', { id: 1 }).then((res) => {
-        setIsLoading(false)
-        setDados(res?.data)
-      });
-    }
-  }, [id]);
+    const userId = getCurrentUser()?.id;
+    get(`/user/${userId}`).then((res) => {
+      setIsLoading(false)
+      setDados(res?.data)
+    });
+  }, []);
 
   const validate = (dados: UserData): FormikErrors<UserData> => {
     const {
@@ -41,11 +38,11 @@ export default function InfoUser() {
 
     const erro: ErroForm = {};
 
-    if(firstName.length === 0) {
+    if (firstName.length === 0) {
       erro.firstName = "Digite seu nome";
     }
 
-    if(lastName.length === 0) {
+    if (lastName.length === 0) {
       erro.lastName = "Digite seu sobrenome";
     }
 
@@ -55,13 +52,13 @@ export default function InfoUser() {
   const salvar = () => {
     const { isValid, values } = innerRef?.current ?? {};
 
-    if(!isValid) {
+    if (!isValid) {
       return;
     }
 
     setIsSaving(true);
 
-    put("/user/1", 
+    put("/user/1",
       {
         firstName: values?.firstName,
         lastName: values?.lastName,
@@ -75,7 +72,7 @@ export default function InfoUser() {
       });
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return <div className="loading" />;
   }
 
@@ -85,7 +82,7 @@ export default function InfoUser() {
         <Col xs="12" className="position-relative">
           <BreadCrumb heading="Informações de Usuário" />
           <div className="right-breadcrumb">
-            <Button onClick={() => salvar()} size="lg">Salvar</Button>
+            <Button disabled={isSaving} onClick={() => salvar()} size="lg">Salvar</Button>
           </div>
           <div className="separator mb-4" />
         </Col>
@@ -102,16 +99,16 @@ export default function InfoUser() {
               innerRef={innerRef as Ref<FormikProps<UserData>> | undefined}
               validateOnMount
               validate={validate}
-              onSubmit={() => {}}
+              onSubmit={() => { }}
             >
               {({ values, setFieldValue }) => (
                 <>
                   <Row className="mb-3">
                     <Col xs="6">
                       <Label>Nome</Label>
-                      <Input 
+                      <Input
                         defaultValue={values.firstName}
-                        onChange={(e) => 
+                        onChange={(e) =>
                           setFieldValue('firstName', e.target.value)
                         }
                       />
@@ -120,16 +117,16 @@ export default function InfoUser() {
                       <Label>Sobrenome</Label>
                       <Input
                         defaultValue={values.lastName}
-                        onChange={(e) => 
+                        onChange={(e) =>
                           setFieldValue('lastName', e.target.value)
-                        } 
+                        }
                       />
                     </Col>
                   </Row>
                   <Row>
                     <Col xs="6">
                       <Label>Email</Label>
-                      <Input 
+                      <Input
                         value={values.email}
                         // onChange={(e) => 
                         //   setFieldValue('firstName', e.target.value)

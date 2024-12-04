@@ -1,18 +1,18 @@
 // TODO arrumar objeto de user
 
 interface User {
-  firstName: string,
-  lastName: string,
-  id: number,
-  email: string,
+  id?: number,
+  firstName?: string,
 }
 
-export const setCurrentUser = (user: User) => {
+type UserSession = User | undefined;
+
+export const setCurrentUser = (user: UserSession) => {
   try {
     if (user) {
-      localStorage.setItem('hsp_current_user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     } else {
-      localStorage.removeItem('hsp_current_user');
+      localStorage.removeItem('user');
     }
   } catch (error) {
     console.log('>>>>: src/helpers/Utils.js : setCurrentUser -> error', error);

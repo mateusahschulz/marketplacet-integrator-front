@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "../assets/css/sass/sidebar.scss"
 import classNames from "classnames";
@@ -6,6 +6,7 @@ import LogoutSVG from "../assets/svg/logout";
 import InfoUserSVG from "../assets/svg/infoUser";
 import SearchSVG from "../assets/svg/search";
 import HamburguerMenuSVG from "../assets/svg/hamburguerMenu";
+import { setCurrentUser } from "../helpers/utilities";
 
 interface SideBar {
   hideMenu: () => void;
@@ -14,6 +15,12 @@ interface SideBar {
 
 export default function SideBar({ hideMenu, isMenuHidden }: SideBar) {
   const { pathname } = useLocation();
+  const history = useNavigate();
+
+  const logout = () => {
+    setCurrentUser(undefined);
+    history('/login');
+  }
 
   return (
     <div className={classNames("sidebar", { "menu-hidden": isMenuHidden })}>
@@ -28,11 +35,11 @@ export default function SideBar({ hideMenu, isMenuHidden }: SideBar) {
           </li>
           <li className={classNames({ "selected": pathname.includes("infoUser") })}>
             <InfoUserSVG />
-            <Link to="/app/infoUser/1">Informações de usuário</Link>
+            <Link to="/app/infoUser">Informações de usuário</Link>
           </li>
           <li>
             <LogoutSVG />
-            <Link to="/app/infoUser/1">Desconectar</Link>
+            <span onClick={logout}>Desconectar</span>
           </li>
         </ul>
       </nav>

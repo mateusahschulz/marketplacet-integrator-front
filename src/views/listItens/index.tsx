@@ -35,7 +35,7 @@ export default function ListItens() {
         </thead>
         <tbody>
           {[{id: 1, keyword: "Produto", priceMax: "1", activated: false}].map((item) => (
-            <CardItem item={item}/>
+            <CardItem key={item.id} item={item}/>
             // <tr key={item.id} className="card-row">
             //   <td>
             //     <NavLink to="/">
