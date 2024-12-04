@@ -1,6 +1,7 @@
 @use "./variables.scss" as *;
 
 .sidebar {
+  padding-top: 20px;
   height: 100%;
   position: fixed;
   width: 250px;
@@ -9,7 +10,14 @@
   box-shadow: 10px 10px 18px 10px rgba(0, 0, 0, 0.15);
 
   .hamburger {
+    padding: 20px 20px 20px 28px;
+    display: flex;
+    justify-content: start;
     cursor: pointer;
+
+    svg {
+      color: white;
+    }
   }
 
   .nav {
@@ -42,6 +50,10 @@
           cursor: pointer;
         }
       }
+      
+      li.selected {
+        background-color: #0066cc;
+      }
     }
   }
 
@@ -58,4 +70,19 @@
 
 .sidebar.menu-hidden {
   width: 80px;
+  transition: all .35s;
+
+  .hamburger {
+    justify-content: center;
+  }
+
+  .nav {
+    ul {
+      li {
+        a {
+          display: none;
+        }
+      }
+    }
+  }
 }

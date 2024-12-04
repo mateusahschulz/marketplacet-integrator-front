@@ -14,8 +14,9 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/app" replace />} />
-        {/* TODO chamar aqui o index que tenha a sidebar */}
+        <Route path="/" element={<Navigate to="/app/itemList" replace />} />
+        <Route path="/app" element={<Navigate to="/app/itemList" replace />} />
+
         <Route path="/app" element={<AppView />}>
           <Route index path="itemList" element={<ListItens />}/>
           <Route path="itemRegistry" element={<ItemRegistry />}/>
