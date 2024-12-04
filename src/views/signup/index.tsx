@@ -7,6 +7,7 @@ import { Formik, FormikErrors, FormikProps } from "formik";
 import { post } from "../../helpers/request";
 
 import "../../assets/css/sass/views/auth.scss"
+import { toast } from "react-toastify";
 
 interface User {
   firstName: string;
@@ -76,6 +77,10 @@ export default function SignUp(){
       });
   }
 
+  const notify = () => toast.success("Notificação de sucesso!", { 
+    // position: toast.POSITION.TOP_RIGHT 
+  });
+
   return (
     <div className="container">
       <Row className="h-100">
@@ -142,6 +147,9 @@ export default function SignUp(){
               <Button disabled={isSaving} size="lg" onClick={() => save()}>
                 Cadastrar
               </Button>
+              <Button onClick={() => {
+                notify()
+              }}>teste</Button>
             </div>
           </Card>
         </Col>

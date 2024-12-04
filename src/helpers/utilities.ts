@@ -1,5 +1,7 @@
 // TODO arrumar objeto de user
 
+import { toast } from "react-toastify";
+
 interface User {
   id?: number,
   firstName?: string,
@@ -32,3 +34,6 @@ export const getCurrentUser = () => {
   }
   return user;
 };
+
+export const notifySuccess = (message: string) => toast.success(message);
+export const notifyError = (message: string) => toast.error(message);
