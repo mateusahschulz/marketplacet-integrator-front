@@ -7,7 +7,6 @@ import { Formik, FormikErrors, FormikProps } from "formik";
 import { delet, get, post, put } from "../../helpers/request";
 import BreadCrumb from "../../components/Breadcrumb";
 
-import 'rc-switch/assets/index.css'
 import { getCurrentUser } from "../../helpers/utilities";
 import { SearchItem } from "../listItens";
 
